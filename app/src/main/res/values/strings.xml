@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Todo List - Java</string>
+    <string name="empty_space_tasks">No task found. Once you\'ll and any task it will be listed here.</string>
+    <string name="title_tasks">Tasks</string>
+    <string name="new_task_message">New task added</string>
+    <string name="new_task_message_error">Error on add new task: </string>
+    <string name="task_name_placeholder">Task name here</string>
+    <string name="button_add">Add</string>
+    <string name="button_cancel">Cancel</string>
+</resources>
