@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
         setTitle(getString(R.string.title_tasks));
 
         fab = findViewById(R.id.fab);
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         recycleViewTasks = findViewById(R.id.recycleViewTasks);
         recycleViewTasks.setLayoutManager(new LinearLayoutManager(this));
-        recycleViewTasks.setAdapter(new ItemTaskAdapter(taskList));
+        recycleViewTasks.setAdapter(new ItemTaskAdapter(this, taskList));
 
         emptySpaceTasks = findViewById(R.id.emptySpaceTasks);
     }
@@ -68,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void refresh() {
         taskList = taskController.findAll();
-        recycleViewTasks.setAdapter(new ItemTaskAdapter(taskList));
+        recycleViewTasks.setAdapter(new ItemTaskAdapter(this, taskList));
         recycleViewTasks.getAdapter().notifyDataSetChanged();
 
         emptySpaceTasks.setVisibility(taskList.isEmpty() ? View.VISIBLE : View.GONE);

@@ -7,4 +7,9 @@
     <string name="task_name_placeholder">Task name here</string>
     <string name="button_add">Add</string>
     <string name="button_cancel">Cancel</string>
+
+    <string name="menu_edit">Edit</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_done">Mark as done</string>
+    <string name="menu_reset">Reset</string>
 </resources>
