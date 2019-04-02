@@ -45,6 +45,32 @@ public class TaskLocalDatabaseRepository {
 
     }
 
+    public void edit(final Task task) {
+
+        ContentValues contentValues = new ContentValues();
+        instancia = database.getWritableDatabase();
+
+        contentValues.put(COLUMN_CREATED_AT, dateFormat.format(task.getCreatedAt()));
+        contentValues.put(COLUMN_NAME, task.getName());
+        contentValues.put(COLUMN_DONE, task.isDone());
+
+        String where = COLUMN_ID + " = '" + task.getId() + "'";
+
+        instancia.update(TABLE_TASK, contentValues, where, null);
+        instancia.close();
+
+    }
+
+    public void delete(Task task) {
+
+        instancia = database.getWritableDatabase();
+        String where = COLUMN_ID + " = '" + task.getId() + "'";
+
+        instancia.delete(TABLE_TASK, where, null);
+        instancia.close();
+
+    }
+
     public List<Task> findAll() {
 
         List<Task> tasks = new ArrayList<>();

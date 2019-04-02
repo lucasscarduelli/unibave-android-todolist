@@ -2,6 +2,7 @@ package net.unibave.todolist_java.view;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,9 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ItemTaskAdapter extends RecyclerView.Adapter<ItemTaskAdapter.ViewHolder> {
 
     List<Task> tasks = new ArrayList<>();
-    Activity activity;
+    MainActivity activity;
 
-    public ItemTaskAdapter(Activity activity, List<Task> tasks) {
+    public ItemTaskAdapter(MainActivity activity, List<Task> tasks) {
         this.activity = activity;
         this.tasks = tasks;
     }
@@ -46,8 +47,10 @@ public class ItemTaskAdapter extends RecyclerView.Adapter<ItemTaskAdapter.ViewHo
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.menu_edit:
+                        activity.editTaskDialog(task);
                         break;
                     case R.id.menu_delete:
+                        activity.deleteTaskDialog(task);
                         break;
                     case R.id.menu_done:
                         break;

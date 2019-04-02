@@ -102,6 +102,68 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    public void editTaskDialog(Task task) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_task, null);
+        EditText dialogTaskName = view.findViewById(R.id.taskName);
+        dialogTaskName.setText(task.getName());
+        builder
+                .setView(view)
+                .setTitle(R.string.title_edit_task_dialog)
+                .setPositiveButton(getString(R.string.button_save), (dialog, which) -> {
+                    task.setName(dialogTaskName.getText().toString());
+                    editTask(task);
+                })
+                .setNegativeButton(getString(R.string.button_cancel), (dialog, which) -> {
+                });
+
+        builder.create().show();
+
+    }
+
+    private void editTask(Task task) {
+        String message = "";
+        try {
+            taskController.edit(task);
+            message = getString(R.string.edit_task_message);
+        } catch (Exception e) {
+            message = getString(R.string.edit_task_message_error) + e.getMessage();
+        } finally {
+            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+            refresh();
+        }
+    }
+
+    public void deleteTaskDialog(Task task) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+                .setMessage(R.string.message_delete_task_dialog)
+                .setTitle(R.string.title_delete_task_dialog)
+                .setTitle(R.string.title_edit_task_dialog)
+                .setPositiveButton(getString(R.string.button_save), (dialog, which) -> {
+                    deleteTask(task);
+                })
+                .setNegativeButton(getString(R.string.button_cancel), (dialog, which) -> {
+                });
+
+        builder.create().show();
+    }
+
+    private void deleteTask(Task task) {
+        String message = "";
+        try {
+            taskController.delete(task);
+            message = getString(R.string.delete_task_message);
+        } catch (Exception e) {
+            message = getString(R.string.delete_task_message_error) + e.getMessage();
+        } finally {
+            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+            refresh();
+        }
+    }
+
     private class FloatingActionButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {

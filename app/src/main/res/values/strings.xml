@@ -4,12 +4,20 @@
     <string name="title_tasks">Tasks</string>
     <string name="new_task_message">New task added</string>
     <string name="new_task_message_error">Error on add new task: </string>
+    <string name="edit_task_message">Task edited</string>
+    <string name="edit_task_message_error">Error on edit task: </string>
+    <string name="delete_task_message">Task deleted</string>
+    <string name="delete_task_message_error">Error on delete task: </string>
     <string name="task_name_placeholder">Task name here</string>
     <string name="button_add">Add</string>
+    <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
 
     <string name="menu_edit">Edit</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_done">Mark as done</string>
     <string name="menu_reset">Reset</string>
+    <string name="title_edit_task_dialog">Editing task</string>
+    <string name="title_delete_task_dialog">Deleting task</string>
+    <string name="message_delete_task_dialog">Do you want to delete this task?</string>
 </resources>

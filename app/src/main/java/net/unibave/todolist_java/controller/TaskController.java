@@ -38,11 +38,19 @@ public class TaskController {
         repository.create(task);
     }
 
+    public void edit(Task task) {
+        validateName(task);
+        repository.edit(task);
+    }
+
     private void validateName(Task task) {
         if (task.getName().isEmpty() || task.getName().length() > 40) {
             throw new RuntimeException("Invalid task name!");
         }
     }
 
+    public void delete(Task task) {
+        repository.delete(task);
+    }
 }
 
