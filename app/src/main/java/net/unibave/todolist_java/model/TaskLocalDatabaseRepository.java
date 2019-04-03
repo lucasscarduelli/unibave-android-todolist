@@ -78,7 +78,8 @@ public class TaskLocalDatabaseRepository {
         instancia = database.getReadableDatabase();
 
         Cursor cursor = instancia.query(TABLE_TASK, fields,
-                null, null, null, null, COLUMN_CREATED_AT);
+                null, null, null, null,
+                COLUMN_DONE + ", " + COLUMN_CREATED_AT);
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
 

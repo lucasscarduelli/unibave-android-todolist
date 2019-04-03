@@ -164,6 +164,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void done(Task task) {
+        String message = "";
+        try {
+            taskController.done(task);
+            message = getString(R.string.done_task_message);
+        } catch (Exception e) {
+            message = getString(R.string.done_task_message_error) + e.getMessage();
+        } finally {
+            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+            refresh();
+        }
+
+    }
+
+    public void reset(Task task) {
+        String message = "";
+        try {
+            taskController.reset(task);
+            message = getString(R.string.reset_task_message);
+        } catch (Exception e) {
+            message = getString(R.string.reset_task_message_error) + e.getMessage();
+        } finally {
+            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+            refresh();
+        }
+
+    }
+
     private class FloatingActionButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {

@@ -8,6 +8,10 @@
     <string name="edit_task_message_error">Error on edit task: </string>
     <string name="delete_task_message">Task deleted</string>
     <string name="delete_task_message_error">Error on delete task: </string>
+    <string name="done_task_message">Task marked as done</string>
+    <string name="done_task_message_error">Error on done task: </string>
+    <string name="reset_task_message">Task reseted</string>
+    <string name="reset_task_message_error">Error on reset task: </string>
     <string name="task_name_placeholder">Task name here</string>
     <string name="button_add">Add</string>
     <string name="button_save">Save</string>

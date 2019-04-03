@@ -1,6 +1,8 @@
 package net.unibave.todolist_java.view;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,10 @@ public class ItemTaskAdapter extends RecyclerView.Adapter<ItemTaskAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Task task = tasks.get(position);
         holder.taskName.setText(task.getName());
+        if (task.isDone()) {
+            holder.taskName.setTextColor(Color.GRAY);
+            holder.taskName.setPaintFlags(holder.taskName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
         holder.menu.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(activity, holder.menu);
@@ -53,8 +59,10 @@ public class ItemTaskAdapter extends RecyclerView.Adapter<ItemTaskAdapter.ViewHo
                         activity.deleteTaskDialog(task);
                         break;
                     case R.id.menu_done:
+                        activity.done(task);
                         break;
                     case R.id.menu_reset:
+                        activity.reset(task);
                         break;
                 }
                 return true;

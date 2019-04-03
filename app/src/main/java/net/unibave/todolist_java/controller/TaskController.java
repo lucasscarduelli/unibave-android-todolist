@@ -52,5 +52,15 @@ public class TaskController {
     public void delete(Task task) {
         repository.delete(task);
     }
+
+    public void done(Task task) {
+        task.setDone(true);
+        edit(task);
+    }
+
+    public void reset(Task task) {
+        task.setDone(false);
+        edit(task);
+    }
 }
 
