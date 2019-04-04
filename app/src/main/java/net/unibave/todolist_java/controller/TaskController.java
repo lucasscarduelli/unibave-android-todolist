@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Build;
 
 import net.unibave.todolist_java.model.Task;
-import net.unibave.todolist_java.model.TaskLocalDatabaseRepository;
+import net.unibave.todolist_java.model.TaskRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.UUID;
 
 public class TaskController {
 
-    TaskLocalDatabaseRepository repository;
+    TaskRepository repository;
 
     public TaskController(Context context) {
-        repository = new TaskLocalDatabaseRepository(context);
+        repository = new TaskRepository(context);
     }
 
     public List<Task> findAll() {

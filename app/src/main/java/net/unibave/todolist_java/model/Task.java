@@ -1,11 +1,18 @@
 package net.unibave.todolist_java.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
+@JsonIgnoreProperties({"__v"})
 public class Task {
 
+    @JsonAlias("_id")
     private String id;
     private String name;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
     private boolean done;
 

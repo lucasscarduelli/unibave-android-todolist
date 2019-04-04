@@ -2,6 +2,7 @@ package net.unibave.todolist_java.view;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,8 +14,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.unibave.todolist_java.R;
@@ -27,6 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    MainActivity mainActivity;
     List<Task> taskList = new ArrayList<>();
 
     Toolbar toolbar;
@@ -41,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mainActivity = this;
         taskController = new TaskController(this);
-        taskList = taskController.findAll();
+        refresh();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,24 +70,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-        taskList = taskController.findAll();
-        recycleViewTasks.setAdapter(new ItemTaskAdapter(this, taskList));
-        recycleViewTasks.getAdapter().notifyDataSetChanged();
+        new Thread(() -> {
+            taskList = taskController.findAll();
+            runOnUiThread(() -> {
+                recycleViewTasks.setAdapter(new ItemTaskAdapter(mainActivity, taskList));
+                recycleViewTasks.getAdapter().notifyDataSetChanged();
 
-        emptySpaceTasks.setVisibility(taskList.isEmpty() ? View.VISIBLE : View.GONE);
+                emptySpaceTasks.setVisibility(taskList.isEmpty() ? View.VISIBLE : View.GONE);
+            });
+        }).start();
     }
 
     protected void createTask(String name) {
-        String message = "";
-        try {
-            taskController.create(name);
-            message = getString(R.string.new_task_message);
-        } catch (Exception e) {
-            message = getString(R.string.new_task_message_error) + e.getMessage();
-        } finally {
-            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
-            refresh();
-        }
+        new Thread(() -> {
+            String message = "";
+            try {
+                taskController.create(name);
+                message = getString(R.string.new_task_message);
+            } catch (Exception e) {
+                message = getString(R.string.new_task_message_error) + e.getMessage();
+            } finally {
+                Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+                refresh();
+            }
+        }).start();
     }
 
     private void createTaskDialog() {
