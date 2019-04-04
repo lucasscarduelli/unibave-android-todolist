@@ -1,32 +1,25 @@
 package net.unibave.todolist_java.view;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import net.unibave.todolist_java.R;
 import net.unibave.todolist_java.controller.TaskController;
 import net.unibave.todolist_java.model.Task;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -134,16 +127,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void editTask(Task task) {
-        String message = "";
-        try {
-            taskController.edit(task);
-            message = getString(R.string.edit_task_message);
-        } catch (Exception e) {
-            message = getString(R.string.edit_task_message_error) + e.getMessage();
-        } finally {
-            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
-            refresh();
-        }
+        new Thread(() -> {
+            String message = "";
+            try {
+                taskController.edit(task);
+                message = getString(R.string.edit_task_message);
+            } catch (Exception e) {
+                message = getString(R.string.edit_task_message_error) + e.getMessage();
+            } finally {
+                Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+                refresh();
+            }
+        }).start();
     }
 
     public void deleteTaskDialog(Task task) {
@@ -163,44 +158,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteTask(Task task) {
-        String message = "";
-        try {
-            taskController.delete(task);
-            message = getString(R.string.delete_task_message);
-        } catch (Exception e) {
-            message = getString(R.string.delete_task_message_error) + e.getMessage();
-        } finally {
-            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
-            refresh();
-        }
+        new Thread(() -> {
+            String message = "";
+            try {
+                taskController.delete(task);
+                message = getString(R.string.delete_task_message);
+            } catch (Exception e) {
+                message = getString(R.string.delete_task_message_error) + e.getMessage();
+            } finally {
+                Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+                refresh();
+            }
+        }).start();
     }
 
     public void done(Task task) {
-        String message = "";
-        try {
-            taskController.done(task);
-            message = getString(R.string.done_task_message);
-        } catch (Exception e) {
-            message = getString(R.string.done_task_message_error) + e.getMessage();
-        } finally {
-            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
-            refresh();
-        }
-
+        new Thread(() -> {
+            String message = "";
+            try {
+                taskController.done(task);
+                message = getString(R.string.done_task_message);
+            } catch (Exception e) {
+                message = getString(R.string.done_task_message_error) + e.getMessage();
+            } finally {
+                Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+                refresh();
+            }
+        }).start();
     }
 
     public void reset(Task task) {
-        String message = "";
-        try {
-            taskController.reset(task);
-            message = getString(R.string.reset_task_message);
-        } catch (Exception e) {
-            message = getString(R.string.reset_task_message_error) + e.getMessage();
-        } finally {
-            Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
-            refresh();
-        }
-
+        new Thread(() -> {
+            String message = "";
+            try {
+                taskController.reset(task);
+                message = getString(R.string.reset_task_message);
+            } catch (Exception e) {
+                message = getString(R.string.reset_task_message_error) + e.getMessage();
+            } finally {
+                Snackbar.make(fab, message, Snackbar.LENGTH_LONG).show();
+                refresh();
+            }
+        }).start();
     }
 
     private class FloatingActionButtonClickListener implements View.OnClickListener {
